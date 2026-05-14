@@ -41,10 +41,7 @@ from .lora_base import (  # noqa
     _pack_dict_with_prefix,
 )
 from .lora_conversion_utils import (
-    _convert_bfl_flux_control_lora_to_diffusers,
-    _convert_fal_kontext_lora_to_diffusers,
     _convert_hunyuan_video_lora_to_diffusers,
-    _convert_kohya_flux_lora_to_diffusers,
     _convert_musubi_wan_lora_to_diffusers,
     _convert_non_diffusers_flux2_lora_to_diffusers,
     _convert_non_diffusers_hidream_lora_to_diffusers,
@@ -55,7 +52,6 @@ from .lora_conversion_utils import (
     _convert_non_diffusers_qwen_lora_to_diffusers,
     _convert_non_diffusers_wan_lora_to_diffusers,
     _convert_non_diffusers_z_image_lora_to_diffusers,
-    _convert_xlabs_flux_lora_to_diffusers,
     _maybe_map_sgm_blocks_to_diffusers,
 )
 
@@ -300,20 +296,14 @@ class StableDiffusionLoraLoaderMixin(LoraBaseMixin):
         subfolder = kwargs.pop("subfolder", None)
         weight_name = kwargs.pop("weight_name", None)
         unet_config = kwargs.pop("unet_config", None)
-        use_safetensors = kwargs.pop("use_safetensors", None)
+        kwargs.pop("use_safetensors", None)  # safetensors-only; kwarg accepted but ignored
         return_lora_metadata = kwargs.pop("return_lora_metadata", False)
-
-        allow_pickle = False
-        if use_safetensors is None:
-            use_safetensors = True
-            allow_pickle = True
 
         user_agent = {"file_type": "attn_procs_weights", "framework": "pytorch"}
 
         state_dict = _fetch_state_dict(
             pretrained_model_name_or_path_or_dict=pretrained_model_name_or_path_or_dict,
             weight_name=weight_name,
-            use_safetensors=use_safetensors,
             local_files_only=local_files_only,
             cache_dir=cache_dir,
             force_download=force_download,
@@ -322,7 +312,6 @@ class StableDiffusionLoraLoaderMixin(LoraBaseMixin):
             revision=revision,
             subfolder=subfolder,
             user_agent=user_agent,
-            allow_pickle=allow_pickle,
         )
         metadata = _fetch_lora_metadata(
             pretrained_model_name_or_path_or_dict=pretrained_model_name_or_path_or_dict,
@@ -747,20 +736,14 @@ class StableDiffusionXLLoraLoaderMixin(LoraBaseMixin):
         subfolder = kwargs.pop("subfolder", None)
         weight_name = kwargs.pop("weight_name", None)
         unet_config = kwargs.pop("unet_config", None)
-        use_safetensors = kwargs.pop("use_safetensors", None)
+        kwargs.pop("use_safetensors", None)  # safetensors-only; kwarg accepted but ignored
         return_lora_metadata = kwargs.pop("return_lora_metadata", False)
-
-        allow_pickle = False
-        if use_safetensors is None:
-            use_safetensors = True
-            allow_pickle = True
 
         user_agent = {"file_type": "attn_procs_weights", "framework": "pytorch"}
 
         state_dict = _fetch_state_dict(
             pretrained_model_name_or_path_or_dict=pretrained_model_name_or_path_or_dict,
             weight_name=weight_name,
-            use_safetensors=use_safetensors,
             local_files_only=local_files_only,
             cache_dir=cache_dir,
             force_download=force_download,
@@ -769,7 +752,6 @@ class StableDiffusionXLLoraLoaderMixin(LoraBaseMixin):
             revision=revision,
             subfolder=subfolder,
             user_agent=user_agent,
-            allow_pickle=allow_pickle,
         )
         metadata = _fetch_lora_metadata(
             pretrained_model_name_or_path_or_dict=pretrained_model_name_or_path_or_dict,
@@ -1036,20 +1018,14 @@ class SD3LoraLoaderMixin(LoraBaseMixin):
         revision = kwargs.pop("revision", None)
         subfolder = kwargs.pop("subfolder", None)
         weight_name = kwargs.pop("weight_name", None)
-        use_safetensors = kwargs.pop("use_safetensors", None)
+        kwargs.pop("use_safetensors", None)  # safetensors-only; kwarg accepted but ignored
         return_lora_metadata = kwargs.pop("return_lora_metadata", False)
-
-        allow_pickle = False
-        if use_safetensors is None:
-            use_safetensors = True
-            allow_pickle = True
 
         user_agent = {"file_type": "attn_procs_weights", "framework": "pytorch"}
 
         state_dict = _fetch_state_dict(
             pretrained_model_name_or_path_or_dict=pretrained_model_name_or_path_or_dict,
             weight_name=weight_name,
-            use_safetensors=use_safetensors,
             local_files_only=local_files_only,
             cache_dir=cache_dir,
             force_download=force_download,
@@ -1058,7 +1034,6 @@ class SD3LoraLoaderMixin(LoraBaseMixin):
             revision=revision,
             subfolder=subfolder,
             user_agent=user_agent,
-            allow_pickle=allow_pickle,
         )
         metadata = _fetch_lora_metadata(
             pretrained_model_name_or_path_or_dict=pretrained_model_name_or_path_or_dict,
@@ -1339,20 +1314,14 @@ class AuraFlowLoraLoaderMixin(LoraBaseMixin):
         revision = kwargs.pop("revision", None)
         subfolder = kwargs.pop("subfolder", None)
         weight_name = kwargs.pop("weight_name", None)
-        use_safetensors = kwargs.pop("use_safetensors", None)
+        kwargs.pop("use_safetensors", None)  # safetensors-only; kwarg accepted but ignored
         return_lora_metadata = kwargs.pop("return_lora_metadata", False)
-
-        allow_pickle = False
-        if use_safetensors is None:
-            use_safetensors = True
-            allow_pickle = True
 
         user_agent = {"file_type": "attn_procs_weights", "framework": "pytorch"}
 
         state_dict = _fetch_state_dict(
             pretrained_model_name_or_path_or_dict=pretrained_model_name_or_path_or_dict,
             weight_name=weight_name,
-            use_safetensors=use_safetensors,
             local_files_only=local_files_only,
             cache_dir=cache_dir,
             force_download=force_download,
@@ -1361,7 +1330,6 @@ class AuraFlowLoraLoaderMixin(LoraBaseMixin):
             revision=revision,
             subfolder=subfolder,
             user_agent=user_agent,
-            allow_pickle=allow_pickle,
         )
         metadata = _fetch_lora_metadata(
             pretrained_model_name_or_path_or_dict=pretrained_model_name_or_path_or_dict,
@@ -1554,20 +1522,14 @@ class FluxLoraLoaderMixin(LoraBaseMixin):
         revision = kwargs.pop("revision", None)
         subfolder = kwargs.pop("subfolder", None)
         weight_name = kwargs.pop("weight_name", None)
-        use_safetensors = kwargs.pop("use_safetensors", None)
+        kwargs.pop("use_safetensors", None)  # safetensors-only; kwarg accepted but ignored
         return_lora_metadata = kwargs.pop("return_lora_metadata", False)
-
-        allow_pickle = False
-        if use_safetensors is None:
-            use_safetensors = True
-            allow_pickle = True
 
         user_agent = {"file_type": "attn_procs_weights", "framework": "pytorch"}
 
         state_dict = _fetch_state_dict(
             pretrained_model_name_or_path_or_dict=pretrained_model_name_or_path_or_dict,
             weight_name=weight_name,
-            use_safetensors=use_safetensors,
             local_files_only=local_files_only,
             cache_dir=cache_dir,
             force_download=force_download,
@@ -1576,7 +1538,6 @@ class FluxLoraLoaderMixin(LoraBaseMixin):
             revision=revision,
             subfolder=subfolder,
             user_agent=user_agent,
-            allow_pickle=allow_pickle,
         )
         metadata = _fetch_lora_metadata(
             pretrained_model_name_or_path_or_dict=pretrained_model_name_or_path_or_dict,
@@ -1595,11 +1556,18 @@ class FluxLoraLoaderMixin(LoraBaseMixin):
             logger.warning(warn_msg)
             state_dict = {k: v for k, v in state_dict.items() if "dora_scale" not in k}
 
-        # TODO (sayakpaul): to a follow-up to clean and try to unify the conditions.
-        is_kohya = any(".lora_down.weight" in k for k in state_dict)
-        if is_kohya:
-            state_dict = _convert_kohya_flux_lora_to_diffusers(state_dict)
-            # Kohya already takes care of scaling the LoRA parameters with alpha.
+        from ..models.transformers.flux import FluxTransformer2DModel
+
+        # Format-specific dispatch lives on the model: detect format (kohya/xlabs/bfl/kontext)
+        # and convert to diffusers naming. Unknown / diffusers-native state dicts fall
+        # through to the alpha-extraction path below.
+        is_recognized_format = FluxTransformer2DModel._detect_lora_format(state_dict) is not None or any(
+            k.startswith("transformer.") for k in state_dict
+        )
+        if is_recognized_format:
+            state_dict = FluxTransformer2DModel.map_lora_to_diffusers(state_dict)
+            # Recognized formats embed alphas in the conversion (kohya scales weights;
+            # xlabs / bfl / kontext don't use alphas).
             return cls._prepare_outputs(
                 state_dict,
                 metadata=metadata,
@@ -1608,42 +1576,8 @@ class FluxLoraLoaderMixin(LoraBaseMixin):
                 return_metadata=return_lora_metadata,
             )
 
-        is_xlabs = any("processor" in k for k in state_dict)
-        if is_xlabs:
-            state_dict = _convert_xlabs_flux_lora_to_diffusers(state_dict)
-            # xlabs doesn't use `alpha`.
-            return cls._prepare_outputs(
-                state_dict,
-                metadata=metadata,
-                alphas=None,
-                return_alphas=return_alphas,
-                return_metadata=return_lora_metadata,
-            )
-
-        is_bfl_control = any("query_norm.scale" in k for k in state_dict)
-        if is_bfl_control:
-            state_dict = _convert_bfl_flux_control_lora_to_diffusers(state_dict)
-            return cls._prepare_outputs(
-                state_dict,
-                metadata=metadata,
-                alphas=None,
-                return_alphas=return_alphas,
-                return_metadata=return_lora_metadata,
-            )
-
-        is_fal_kontext = any("base_model" in k for k in state_dict)
-        if is_fal_kontext:
-            state_dict = _convert_fal_kontext_lora_to_diffusers(state_dict)
-            return cls._prepare_outputs(
-                state_dict,
-                metadata=metadata,
-                alphas=None,
-                return_alphas=return_alphas,
-                return_metadata=return_lora_metadata,
-            )
-
-        # For state dicts like
-        # https://huggingface.co/TheLastBen/Jon_Snow_Flux_LoRA
+        # Diffusers-native fallback (e.g. https://huggingface.co/TheLastBen/Jon_Snow_Flux_LoRA):
+        # alphas ride alongside the weights as separate ``.alpha`` keys.
         keys = list(state_dict.keys())
         network_alphas = {}
         for k in keys:
@@ -2488,20 +2422,14 @@ class CogVideoXLoraLoaderMixin(LoraBaseMixin):
         revision = kwargs.pop("revision", None)
         subfolder = kwargs.pop("subfolder", None)
         weight_name = kwargs.pop("weight_name", None)
-        use_safetensors = kwargs.pop("use_safetensors", None)
+        kwargs.pop("use_safetensors", None)  # safetensors-only; kwarg accepted but ignored
         return_lora_metadata = kwargs.pop("return_lora_metadata", False)
-
-        allow_pickle = False
-        if use_safetensors is None:
-            use_safetensors = True
-            allow_pickle = True
 
         user_agent = {"file_type": "attn_procs_weights", "framework": "pytorch"}
 
         state_dict = _fetch_state_dict(
             pretrained_model_name_or_path_or_dict=pretrained_model_name_or_path_or_dict,
             weight_name=weight_name,
-            use_safetensors=use_safetensors,
             local_files_only=local_files_only,
             cache_dir=cache_dir,
             force_download=force_download,
@@ -2510,7 +2438,6 @@ class CogVideoXLoraLoaderMixin(LoraBaseMixin):
             revision=revision,
             subfolder=subfolder,
             user_agent=user_agent,
-            allow_pickle=allow_pickle,
         )
         metadata = _fetch_lora_metadata(
             pretrained_model_name_or_path_or_dict=pretrained_model_name_or_path_or_dict,
@@ -2694,20 +2621,14 @@ class Mochi1LoraLoaderMixin(LoraBaseMixin):
         revision = kwargs.pop("revision", None)
         subfolder = kwargs.pop("subfolder", None)
         weight_name = kwargs.pop("weight_name", None)
-        use_safetensors = kwargs.pop("use_safetensors", None)
+        kwargs.pop("use_safetensors", None)  # safetensors-only; kwarg accepted but ignored
         return_lora_metadata = kwargs.pop("return_lora_metadata", False)
-
-        allow_pickle = False
-        if use_safetensors is None:
-            use_safetensors = True
-            allow_pickle = True
 
         user_agent = {"file_type": "attn_procs_weights", "framework": "pytorch"}
 
         state_dict = _fetch_state_dict(
             pretrained_model_name_or_path_or_dict=pretrained_model_name_or_path_or_dict,
             weight_name=weight_name,
-            use_safetensors=use_safetensors,
             local_files_only=local_files_only,
             cache_dir=cache_dir,
             force_download=force_download,
@@ -2716,7 +2637,6 @@ class Mochi1LoraLoaderMixin(LoraBaseMixin):
             revision=revision,
             subfolder=subfolder,
             user_agent=user_agent,
-            allow_pickle=allow_pickle,
         )
         metadata = _fetch_lora_metadata(
             pretrained_model_name_or_path_or_dict=pretrained_model_name_or_path_or_dict,
@@ -2903,20 +2823,14 @@ class LTXVideoLoraLoaderMixin(LoraBaseMixin):
         revision = kwargs.pop("revision", None)
         subfolder = kwargs.pop("subfolder", None)
         weight_name = kwargs.pop("weight_name", None)
-        use_safetensors = kwargs.pop("use_safetensors", None)
+        kwargs.pop("use_safetensors", None)  # safetensors-only; kwarg accepted but ignored
         return_lora_metadata = kwargs.pop("return_lora_metadata", False)
-
-        allow_pickle = False
-        if use_safetensors is None:
-            use_safetensors = True
-            allow_pickle = True
 
         user_agent = {"file_type": "attn_procs_weights", "framework": "pytorch"}
 
         state_dict = _fetch_state_dict(
             pretrained_model_name_or_path_or_dict=pretrained_model_name_or_path_or_dict,
             weight_name=weight_name,
-            use_safetensors=use_safetensors,
             local_files_only=local_files_only,
             cache_dir=cache_dir,
             force_download=force_download,
@@ -2925,7 +2839,6 @@ class LTXVideoLoraLoaderMixin(LoraBaseMixin):
             revision=revision,
             subfolder=subfolder,
             user_agent=user_agent,
-            allow_pickle=allow_pickle,
         )
         metadata = _fetch_lora_metadata(
             pretrained_model_name_or_path_or_dict=pretrained_model_name_or_path_or_dict,
@@ -3117,20 +3030,14 @@ class LTX2LoraLoaderMixin(LoraBaseMixin):
         revision = kwargs.pop("revision", None)
         subfolder = kwargs.pop("subfolder", None)
         weight_name = kwargs.pop("weight_name", None)
-        use_safetensors = kwargs.pop("use_safetensors", None)
+        kwargs.pop("use_safetensors", None)  # safetensors-only; kwarg accepted but ignored
         return_lora_metadata = kwargs.pop("return_lora_metadata", False)
-
-        allow_pickle = False
-        if use_safetensors is None:
-            use_safetensors = True
-            allow_pickle = True
 
         user_agent = {"file_type": "attn_procs_weights", "framework": "pytorch"}
 
         state_dict = _fetch_state_dict(
             pretrained_model_name_or_path_or_dict=pretrained_model_name_or_path_or_dict,
             weight_name=weight_name,
-            use_safetensors=use_safetensors,
             local_files_only=local_files_only,
             cache_dir=cache_dir,
             force_download=force_download,
@@ -3139,7 +3046,6 @@ class LTX2LoraLoaderMixin(LoraBaseMixin):
             revision=revision,
             subfolder=subfolder,
             user_agent=user_agent,
-            allow_pickle=allow_pickle,
         )
         metadata = _fetch_lora_metadata(
             pretrained_model_name_or_path_or_dict=pretrained_model_name_or_path_or_dict,
@@ -3353,20 +3259,14 @@ class SanaLoraLoaderMixin(LoraBaseMixin):
         revision = kwargs.pop("revision", None)
         subfolder = kwargs.pop("subfolder", None)
         weight_name = kwargs.pop("weight_name", None)
-        use_safetensors = kwargs.pop("use_safetensors", None)
+        kwargs.pop("use_safetensors", None)  # safetensors-only; kwarg accepted but ignored
         return_lora_metadata = kwargs.pop("return_lora_metadata", False)
-
-        allow_pickle = False
-        if use_safetensors is None:
-            use_safetensors = True
-            allow_pickle = True
 
         user_agent = {"file_type": "attn_procs_weights", "framework": "pytorch"}
 
         state_dict = _fetch_state_dict(
             pretrained_model_name_or_path_or_dict=pretrained_model_name_or_path_or_dict,
             weight_name=weight_name,
-            use_safetensors=use_safetensors,
             local_files_only=local_files_only,
             cache_dir=cache_dir,
             force_download=force_download,
@@ -3375,7 +3275,6 @@ class SanaLoraLoaderMixin(LoraBaseMixin):
             revision=revision,
             subfolder=subfolder,
             user_agent=user_agent,
-            allow_pickle=allow_pickle,
         )
         metadata = _fetch_lora_metadata(
             pretrained_model_name_or_path_or_dict=pretrained_model_name_or_path_or_dict,
@@ -3562,20 +3461,14 @@ class HunyuanVideoLoraLoaderMixin(LoraBaseMixin):
         revision = kwargs.pop("revision", None)
         subfolder = kwargs.pop("subfolder", None)
         weight_name = kwargs.pop("weight_name", None)
-        use_safetensors = kwargs.pop("use_safetensors", None)
+        kwargs.pop("use_safetensors", None)  # safetensors-only; kwarg accepted but ignored
         return_lora_metadata = kwargs.pop("return_lora_metadata", False)
-
-        allow_pickle = False
-        if use_safetensors is None:
-            use_safetensors = True
-            allow_pickle = True
 
         user_agent = {"file_type": "attn_procs_weights", "framework": "pytorch"}
 
         state_dict = _fetch_state_dict(
             pretrained_model_name_or_path_or_dict=pretrained_model_name_or_path_or_dict,
             weight_name=weight_name,
-            use_safetensors=use_safetensors,
             local_files_only=local_files_only,
             cache_dir=cache_dir,
             force_download=force_download,
@@ -3584,7 +3477,6 @@ class HunyuanVideoLoraLoaderMixin(LoraBaseMixin):
             revision=revision,
             subfolder=subfolder,
             user_agent=user_agent,
-            allow_pickle=allow_pickle,
         )
         metadata = _fetch_lora_metadata(
             pretrained_model_name_or_path_or_dict=pretrained_model_name_or_path_or_dict,
@@ -3775,20 +3667,14 @@ class Lumina2LoraLoaderMixin(LoraBaseMixin):
         revision = kwargs.pop("revision", None)
         subfolder = kwargs.pop("subfolder", None)
         weight_name = kwargs.pop("weight_name", None)
-        use_safetensors = kwargs.pop("use_safetensors", None)
+        kwargs.pop("use_safetensors", None)  # safetensors-only; kwarg accepted but ignored
         return_lora_metadata = kwargs.pop("return_lora_metadata", False)
-
-        allow_pickle = False
-        if use_safetensors is None:
-            use_safetensors = True
-            allow_pickle = True
 
         user_agent = {"file_type": "attn_procs_weights", "framework": "pytorch"}
 
         state_dict = _fetch_state_dict(
             pretrained_model_name_or_path_or_dict=pretrained_model_name_or_path_or_dict,
             weight_name=weight_name,
-            use_safetensors=use_safetensors,
             local_files_only=local_files_only,
             cache_dir=cache_dir,
             force_download=force_download,
@@ -3797,7 +3683,6 @@ class Lumina2LoraLoaderMixin(LoraBaseMixin):
             revision=revision,
             subfolder=subfolder,
             user_agent=user_agent,
-            allow_pickle=allow_pickle,
         )
         metadata = _fetch_lora_metadata(
             pretrained_model_name_or_path_or_dict=pretrained_model_name_or_path_or_dict,
@@ -3990,20 +3875,14 @@ class KandinskyLoraLoaderMixin(LoraBaseMixin):
         revision = kwargs.pop("revision", None)
         subfolder = kwargs.pop("subfolder", None)
         weight_name = kwargs.pop("weight_name", None)
-        use_safetensors = kwargs.pop("use_safetensors", None)
+        kwargs.pop("use_safetensors", None)  # safetensors-only; kwarg accepted but ignored
         return_lora_metadata = kwargs.pop("return_lora_metadata", False)
-
-        allow_pickle = False
-        if use_safetensors is None:
-            use_safetensors = True
-            allow_pickle = True
 
         user_agent = {"file_type": "attn_procs_weights", "framework": "pytorch"}
 
         state_dict = _fetch_state_dict(
             pretrained_model_name_or_path_or_dict=pretrained_model_name_or_path_or_dict,
             weight_name=weight_name,
-            use_safetensors=use_safetensors,
             local_files_only=local_files_only,
             cache_dir=cache_dir,
             force_download=force_download,
@@ -4012,7 +3891,6 @@ class KandinskyLoraLoaderMixin(LoraBaseMixin):
             revision=revision,
             subfolder=subfolder,
             user_agent=user_agent,
-            allow_pickle=allow_pickle,
         )
         metadata = _fetch_lora_metadata(
             pretrained_model_name_or_path_or_dict=pretrained_model_name_or_path_or_dict,
@@ -4199,20 +4077,14 @@ class WanLoraLoaderMixin(LoraBaseMixin):
         revision = kwargs.pop("revision", None)
         subfolder = kwargs.pop("subfolder", None)
         weight_name = kwargs.pop("weight_name", None)
-        use_safetensors = kwargs.pop("use_safetensors", None)
+        kwargs.pop("use_safetensors", None)  # safetensors-only; kwarg accepted but ignored
         return_lora_metadata = kwargs.pop("return_lora_metadata", False)
-
-        allow_pickle = False
-        if use_safetensors is None:
-            use_safetensors = True
-            allow_pickle = True
 
         user_agent = {"file_type": "attn_procs_weights", "framework": "pytorch"}
 
         state_dict = _fetch_state_dict(
             pretrained_model_name_or_path_or_dict=pretrained_model_name_or_path_or_dict,
             weight_name=weight_name,
-            use_safetensors=use_safetensors,
             local_files_only=local_files_only,
             cache_dir=cache_dir,
             force_download=force_download,
@@ -4221,7 +4093,6 @@ class WanLoraLoaderMixin(LoraBaseMixin):
             revision=revision,
             subfolder=subfolder,
             user_agent=user_agent,
-            allow_pickle=allow_pickle,
         )
         metadata = _fetch_lora_metadata(
             pretrained_model_name_or_path_or_dict=pretrained_model_name_or_path_or_dict,
@@ -4483,20 +4354,14 @@ class SkyReelsV2LoraLoaderMixin(LoraBaseMixin):
         revision = kwargs.pop("revision", None)
         subfolder = kwargs.pop("subfolder", None)
         weight_name = kwargs.pop("weight_name", None)
-        use_safetensors = kwargs.pop("use_safetensors", None)
+        kwargs.pop("use_safetensors", None)  # safetensors-only; kwarg accepted but ignored
         return_lora_metadata = kwargs.pop("return_lora_metadata", False)
-
-        allow_pickle = False
-        if use_safetensors is None:
-            use_safetensors = True
-            allow_pickle = True
 
         user_agent = {"file_type": "attn_procs_weights", "framework": "pytorch"}
 
         state_dict = _fetch_state_dict(
             pretrained_model_name_or_path_or_dict=pretrained_model_name_or_path_or_dict,
             weight_name=weight_name,
-            use_safetensors=use_safetensors,
             local_files_only=local_files_only,
             cache_dir=cache_dir,
             force_download=force_download,
@@ -4505,7 +4370,6 @@ class SkyReelsV2LoraLoaderMixin(LoraBaseMixin):
             revision=revision,
             subfolder=subfolder,
             user_agent=user_agent,
-            allow_pickle=allow_pickle,
         )
         metadata = _fetch_lora_metadata(
             pretrained_model_name_or_path_or_dict=pretrained_model_name_or_path_or_dict,
@@ -4769,20 +4633,14 @@ class CogView4LoraLoaderMixin(LoraBaseMixin):
         revision = kwargs.pop("revision", None)
         subfolder = kwargs.pop("subfolder", None)
         weight_name = kwargs.pop("weight_name", None)
-        use_safetensors = kwargs.pop("use_safetensors", None)
+        kwargs.pop("use_safetensors", None)  # safetensors-only; kwarg accepted but ignored
         return_lora_metadata = kwargs.pop("return_lora_metadata", False)
-
-        allow_pickle = False
-        if use_safetensors is None:
-            use_safetensors = True
-            allow_pickle = True
 
         user_agent = {"file_type": "attn_procs_weights", "framework": "pytorch"}
 
         state_dict = _fetch_state_dict(
             pretrained_model_name_or_path_or_dict=pretrained_model_name_or_path_or_dict,
             weight_name=weight_name,
-            use_safetensors=use_safetensors,
             local_files_only=local_files_only,
             cache_dir=cache_dir,
             force_download=force_download,
@@ -4791,7 +4649,6 @@ class CogView4LoraLoaderMixin(LoraBaseMixin):
             revision=revision,
             subfolder=subfolder,
             user_agent=user_agent,
-            allow_pickle=allow_pickle,
         )
         metadata = _fetch_lora_metadata(
             pretrained_model_name_or_path_or_dict=pretrained_model_name_or_path_or_dict,
@@ -4978,20 +4835,14 @@ class HiDreamImageLoraLoaderMixin(LoraBaseMixin):
         revision = kwargs.pop("revision", None)
         subfolder = kwargs.pop("subfolder", None)
         weight_name = kwargs.pop("weight_name", None)
-        use_safetensors = kwargs.pop("use_safetensors", None)
+        kwargs.pop("use_safetensors", None)  # safetensors-only; kwarg accepted but ignored
         return_lora_metadata = kwargs.pop("return_lora_metadata", False)
-
-        allow_pickle = False
-        if use_safetensors is None:
-            use_safetensors = True
-            allow_pickle = True
 
         user_agent = {"file_type": "attn_procs_weights", "framework": "pytorch"}
 
         state_dict = _fetch_state_dict(
             pretrained_model_name_or_path_or_dict=pretrained_model_name_or_path_or_dict,
             weight_name=weight_name,
-            use_safetensors=use_safetensors,
             local_files_only=local_files_only,
             cache_dir=cache_dir,
             force_download=force_download,
@@ -5000,7 +4851,6 @@ class HiDreamImageLoraLoaderMixin(LoraBaseMixin):
             revision=revision,
             subfolder=subfolder,
             user_agent=user_agent,
-            allow_pickle=allow_pickle,
         )
         metadata = _fetch_lora_metadata(
             pretrained_model_name_or_path_or_dict=pretrained_model_name_or_path_or_dict,
@@ -5191,20 +5041,14 @@ class QwenImageLoraLoaderMixin(LoraBaseMixin):
         revision = kwargs.pop("revision", None)
         subfolder = kwargs.pop("subfolder", None)
         weight_name = kwargs.pop("weight_name", None)
-        use_safetensors = kwargs.pop("use_safetensors", None)
+        kwargs.pop("use_safetensors", None)  # safetensors-only; kwarg accepted but ignored
         return_lora_metadata = kwargs.pop("return_lora_metadata", False)
-
-        allow_pickle = False
-        if use_safetensors is None:
-            use_safetensors = True
-            allow_pickle = True
 
         user_agent = {"file_type": "attn_procs_weights", "framework": "pytorch"}
 
         state_dict = _fetch_state_dict(
             pretrained_model_name_or_path_or_dict=pretrained_model_name_or_path_or_dict,
             weight_name=weight_name,
-            use_safetensors=use_safetensors,
             local_files_only=local_files_only,
             cache_dir=cache_dir,
             force_download=force_download,
@@ -5213,7 +5057,6 @@ class QwenImageLoraLoaderMixin(LoraBaseMixin):
             revision=revision,
             subfolder=subfolder,
             user_agent=user_agent,
-            allow_pickle=allow_pickle,
         )
         metadata = _fetch_lora_metadata(
             pretrained_model_name_or_path_or_dict=pretrained_model_name_or_path_or_dict,
@@ -5407,20 +5250,14 @@ class ZImageLoraLoaderMixin(LoraBaseMixin):
         revision = kwargs.pop("revision", None)
         subfolder = kwargs.pop("subfolder", None)
         weight_name = kwargs.pop("weight_name", None)
-        use_safetensors = kwargs.pop("use_safetensors", None)
+        kwargs.pop("use_safetensors", None)  # safetensors-only; kwarg accepted but ignored
         return_lora_metadata = kwargs.pop("return_lora_metadata", False)
-
-        allow_pickle = False
-        if use_safetensors is None:
-            use_safetensors = True
-            allow_pickle = True
 
         user_agent = {"file_type": "attn_procs_weights", "framework": "pytorch"}
 
         state_dict = _fetch_state_dict(
             pretrained_model_name_or_path_or_dict=pretrained_model_name_or_path_or_dict,
             weight_name=weight_name,
-            use_safetensors=use_safetensors,
             local_files_only=local_files_only,
             cache_dir=cache_dir,
             force_download=force_download,
@@ -5429,7 +5266,6 @@ class ZImageLoraLoaderMixin(LoraBaseMixin):
             revision=revision,
             subfolder=subfolder,
             user_agent=user_agent,
-            allow_pickle=allow_pickle,
         )
         metadata = _fetch_lora_metadata(
             pretrained_model_name_or_path_or_dict=pretrained_model_name_or_path_or_dict,
@@ -5623,20 +5459,14 @@ class Flux2LoraLoaderMixin(LoraBaseMixin):
         revision = kwargs.pop("revision", None)
         subfolder = kwargs.pop("subfolder", None)
         weight_name = kwargs.pop("weight_name", None)
-        use_safetensors = kwargs.pop("use_safetensors", None)
+        kwargs.pop("use_safetensors", None)  # safetensors-only; kwarg accepted but ignored
         return_lora_metadata = kwargs.pop("return_lora_metadata", False)
-
-        allow_pickle = False
-        if use_safetensors is None:
-            use_safetensors = True
-            allow_pickle = True
 
         user_agent = {"file_type": "attn_procs_weights", "framework": "pytorch"}
 
         state_dict = _fetch_state_dict(
             pretrained_model_name_or_path_or_dict=pretrained_model_name_or_path_or_dict,
             weight_name=weight_name,
-            use_safetensors=use_safetensors,
             local_files_only=local_files_only,
             cache_dir=cache_dir,
             force_download=force_download,
@@ -5645,7 +5475,6 @@ class Flux2LoraLoaderMixin(LoraBaseMixin):
             revision=revision,
             subfolder=subfolder,
             user_agent=user_agent,
-            allow_pickle=allow_pickle,
         )
         metadata = _fetch_lora_metadata(
             pretrained_model_name_or_path_or_dict=pretrained_model_name_or_path_or_dict,
